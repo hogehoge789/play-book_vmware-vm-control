@@ -1,0 +1,24 @@
+---
+- name: create vm
+  vmware_guest:
+    datacenter: "{{ vc_datacenter }}"
+    hostname: "{{ vc_hostname }}"
+    username: "{{ admin_username }}"
+    password: "{{ admin_password }}"
+    esxi_hotname: "{{ esxhost }}"
+    validate_certs: no
+    name: "{{ guest_vm_name }}"
+    state: poweredon
+    template: "{{ vc_template }}"
+    disk:
+    - size_gb: 40
+      type: thin
+      datastore: "{{ vc_datastore }}"
+    - size_gb: 60
+      type: thin
+      datastore: "{{ vc_datastore }}"
+    hardware:
+      memory_mb: 4096
+      num_cpus: 2
+    wait_for_ip_address: yes
+
